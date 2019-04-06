@@ -2,7 +2,7 @@ package com.stanjg.ptero4j.actions.admin.nodes;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.actions.PteroAction;
-import com.stanjg.ptero4j.entities.panel.admin.Node;
+import com.stanjg.ptero4j.entities.panel.admin.node.Node;
 import com.stanjg.ptero4j.util.HTTPMethod;
 import org.json.JSONObject;
 

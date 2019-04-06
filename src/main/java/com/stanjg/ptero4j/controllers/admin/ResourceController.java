@@ -3,7 +3,6 @@ package com.stanjg.ptero4j.controllers.admin;
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.actions.PteroAction;
 import com.stanjg.ptero4j.controllers.Controller;
-import com.stanjg.ptero4j.entities.panel.admin.Server;
 import com.stanjg.ptero4j.util.HTTPMethod;
 import com.stanjg.ptero4j.util.PteroUtils;
 import okhttp3.Response;
@@ -202,6 +201,44 @@ public abstract class ResourceController<T> extends Controller {
                     json = new JSONObject(makeApiCall("/"+resourceName+"?page="+i, HTTPMethod.GET).body().string());
 
                 addPageToList(json, resources);
+            }
+
+            return resources;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    protected List<JSONObject> getAllEmbeddedResources(int id, String appendedEndpoint) {
+        try {
+            String endPoint = "/" + resourceName + "/" + id + "/" + appendedEndpoint;
+            Response response = makeApiCall(endPoint, HTTPMethod.GET);
+
+            if (response.code() < 200 || response.code() >= 300) {
+                PteroUtils.logRequestError(response);
+                return null;
+            }
+
+            List<JSONObject> resources = new ArrayList<>();
+
+            JSONObject json = new JSONObject(response.body().string());
+            int pages = json.getJSONObject("meta").getJSONObject("pagination").getInt("total_pages");
+
+            for (int i = 1; i <= pages; ++i) {
+                if (i != 1)
+                    json = new JSONObject(makeApiCall(endPoint + "?page=" + i, HTTPMethod.GET).body().string());
+
+                JSONArray arr = json.getJSONArray("data");
+
+                for (int j = 0; j < arr.length(); j ++) {
+                    JSONObject json_ = arr.getJSONObject(j).getJSONObject("attributes");
+
+                    resources.add(json);
+                }
             }
 
             return resources;

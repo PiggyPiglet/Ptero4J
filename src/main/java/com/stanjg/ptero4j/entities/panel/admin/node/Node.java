@@ -1,7 +1,8 @@
-package com.stanjg.ptero4j.entities.panel.admin;
+package com.stanjg.ptero4j.entities.panel.admin.node;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.actions.admin.nodes.NodeUpdateAction;
+import com.stanjg.ptero4j.entities.panel.admin.Location;
 import org.json.JSONObject;
 
 public class Node {

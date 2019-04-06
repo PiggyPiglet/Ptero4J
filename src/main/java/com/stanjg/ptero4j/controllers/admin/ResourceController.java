@@ -237,7 +237,7 @@ public abstract class ResourceController<T> extends Controller {
                 for (int j = 0; j < arr.length(); j ++) {
                     JSONObject json_ = arr.getJSONObject(j).getJSONObject("attributes");
 
-                    resources.add(json);
+                    resources.add(json_);
                 }
             }
 

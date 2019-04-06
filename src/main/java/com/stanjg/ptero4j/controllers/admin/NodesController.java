@@ -4,6 +4,7 @@ import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.actions.admin.nodes.NodeUpdateAction;
 import com.stanjg.ptero4j.entities.panel.admin.node.Allocation;
 import com.stanjg.ptero4j.entities.panel.admin.node.Node;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -37,7 +38,13 @@ public class NodesController extends ResourceController<Node> {
     }
 
     public List<Allocation> getAllocations(int nodeId) {
-        return super.getAllEmbeddedResources(nodeId, "allocations").stream().map(j -> new Allocation(getAdminAPI(), j)).collect(Collectors.toList());
+        List<JSONObject> res = super.getAllEmbeddedResources(nodeId, "allocations");
+
+        for(JSONObject jo : res){
+            System.out.println(jo.toString());
+        }
+        
+        return res.stream().map(j -> new Allocation(getAdminAPI(), j)).collect(Collectors.toList());
     }
 
     public List<Node> getNodePage(int page) {

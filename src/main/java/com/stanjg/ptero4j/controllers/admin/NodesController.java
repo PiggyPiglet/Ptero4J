@@ -43,7 +43,7 @@ public class NodesController extends ResourceController<Node> {
         for(JSONObject jo : res){
             System.out.println(jo.toString());
         }
-        
+
         return res.stream().map(j -> new Allocation(getAdminAPI(), j)).collect(Collectors.toList());
     }
 

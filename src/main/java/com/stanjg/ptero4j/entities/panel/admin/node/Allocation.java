@@ -18,16 +18,12 @@ public class Allocation {
         this(
                 json.getInt("id"),
                 json.getString("ip"),
-                Allocation.tryToGet(json, "alias"),
+                json.optString("alias"),
                 json.getInt("port"),
                 json.getBoolean("assigned")
         );
     }
-    public static String tryToGet(JSONObject jsonObj, String key) {
-        if (jsonObj.has(key))
-            return jsonObj.optString(key);
-        return null;
-    }
+   
     private Allocation(int id, String ip, String alias, int port, boolean assigned) {
         this.id = id;
         this.ip = ip;

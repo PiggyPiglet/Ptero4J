@@ -6,7 +6,7 @@
 
     <groupId>com.stanjg</groupId>
     <artifactId>Ptero4J</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
 
     <issueManagement>
         <url>https://github.com/stanjg/Ptero4J/issues</url>

@@ -33,7 +33,7 @@ public class PteroAdminAPI {
         this.logger = logger;
 
         try {
-            new TestController(null, this.baseURL, this.key).testConnection();
+            new TestController(null, this.baseURL, this.key, logger).testConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }

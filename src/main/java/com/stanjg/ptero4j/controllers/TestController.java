@@ -1,15 +1,18 @@
 package com.stanjg.ptero4j.controllers;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
+import com.stanjg.ptero4j.entities.objects.misc.Logger;
 import com.stanjg.ptero4j.util.HTTPMethod;
 import okhttp3.Response;
 
 import java.io.IOException;
 
 public class TestController extends Controller {
+    private final Logger logger;
 
-    public TestController(PteroAdminAPI api, String baseURL, String key) {
+    public TestController(PteroAdminAPI api, String baseURL, String key, Logger logger) {
         super(api, baseURL, key);
+        this.logger = logger;
     }
 
     public void testConnection() throws IOException {
@@ -62,4 +65,8 @@ public class TestController extends Controller {
         System.exit(1);
     }
 
+    @Override
+    protected Logger getLogger() {
+        return logger;
+    }
 }

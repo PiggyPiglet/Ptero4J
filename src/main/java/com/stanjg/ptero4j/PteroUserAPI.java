@@ -27,7 +27,7 @@ public class PteroUserAPI {
         this.logger = logger;
 
         try {
-            new TestController(null, this.baseURL, this.key).testUserConnection();
+            new TestController(null, this.baseURL, this.key, logger).testUserConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }

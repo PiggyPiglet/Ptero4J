@@ -18,7 +18,7 @@ public abstract class Controller {
     private OkHttpClient client;
     private String baseURL, key;
 
-    private final Logger logger;
+    private Logger logger;
 
     private static final MediaType JSON = MediaType.parse("application/json");
 
@@ -26,7 +26,10 @@ public abstract class Controller {
         this.adminAPI = api;
         this.baseURL = baseURL;
         this.key = key;
-        this.logger = api.getLogger();
+
+        if (api != null) {
+            this.logger = api.getLogger();
+        }
 
         this.client = new OkHttpClient();
     }
@@ -35,7 +38,10 @@ public abstract class Controller {
         this.userAPI = api;
         this.baseURL = baseURL;
         this.key = key;
-        this.logger = api.getLogger();
+
+        if (api != null) {
+            this.logger = api.getLogger();
+        }
 
         this.client = new OkHttpClient();
     }
@@ -133,6 +139,6 @@ public abstract class Controller {
     }
 
     protected void logError(Response response) {
-        logger.error(PteroUtils.getErrorMessage(response));
+        getLogger().error(PteroUtils.getErrorMessage(response));
     }
 }

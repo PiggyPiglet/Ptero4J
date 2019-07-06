@@ -2,7 +2,9 @@ package com.stanjg.ptero4j.controllers;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
+import com.stanjg.ptero4j.entities.objects.misc.Logger;
 import com.stanjg.ptero4j.util.HTTPMethod;
+import com.stanjg.ptero4j.util.PteroUtils;
 import okhttp3.*;
 import org.json.JSONObject;
 
@@ -16,12 +18,15 @@ public abstract class Controller {
     private OkHttpClient client;
     private String baseURL, key;
 
+    private final Logger logger;
+
     private static final MediaType JSON = MediaType.parse("application/json");
 
     public Controller(PteroAdminAPI api, String baseURL, String key) {
         this.adminAPI = api;
         this.baseURL = baseURL;
         this.key = key;
+        this.logger = api.getLogger();
 
         this.client = new OkHttpClient();
     }
@@ -30,6 +35,7 @@ public abstract class Controller {
         this.userAPI = api;
         this.baseURL = baseURL;
         this.key = key;
+        this.logger = api.getLogger();
 
         this.client = new OkHttpClient();
     }
@@ -120,5 +126,13 @@ public abstract class Controller {
 
     protected PteroUserAPI getUserAPI() {
         return userAPI;
+    }
+
+    protected Logger getLogger() {
+        return logger;
+    }
+
+    protected void logError(Response response) {
+        logger.error(PteroUtils.getErrorMessage(response));
     }
 }

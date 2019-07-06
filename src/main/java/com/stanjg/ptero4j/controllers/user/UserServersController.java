@@ -6,7 +6,6 @@ import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 import com.stanjg.ptero4j.util.HTTPMethod;
-import com.stanjg.ptero4j.util.PteroUtils;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +26,7 @@ public class UserServersController extends Controller {
 
             Response response = makeApiCall("/servers/"+id, HTTPMethod.GET);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -47,7 +46,7 @@ public class UserServersController extends Controller {
 
             Response response = makeApiCall("", HTTPMethod.GET);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 

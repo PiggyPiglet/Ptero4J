@@ -2,7 +2,6 @@ package com.stanjg.ptero4j.controllers;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.util.HTTPMethod;
-import com.stanjg.ptero4j.util.PteroUtils;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -19,19 +18,19 @@ public class TestController extends Controller {
         switch (response.code()) {
 
             case 200:
-                PteroUtils.log("Ptero4J loaded! Successfully made contact with the panel.");
+                getLogger().info("Ptero4J loaded! Successfully made contact with the panel.");
                 return;
             case 401:
-                PteroUtils.log("Ptero4J failed to load! Unable to authenticate. Your key might be invalid.");
+                getLogger().error("Ptero4J failed to load! Unable to authenticate. Your key might be invalid.");
                 break;
             case 403:
-                PteroUtils.log("Mixed: not authorized to access /users, no permission.");
+                getLogger().warning("Mixed: not authorized to access /users, no permission.");
                 return;
             case 404:
-                PteroUtils.log("Ptero4J failed to load! An invalid URL was provided.");
+                getLogger().error("Ptero4J failed to load! An invalid URL was provided.");
                 break;
             case 500:
-                PteroUtils.log("An error occurred on the panel side, please check panel logs/");
+                getLogger().error("An error occurred on the panel side, please check panel logs/");
                 break;
         }
 
@@ -44,19 +43,19 @@ public class TestController extends Controller {
         switch (response.code()) {
 
             case 200:
-                PteroUtils.log("Ptero4J loaded! Successfully made contact with the panel.");
+                getLogger().info("Ptero4J loaded! Successfully made contact with the panel.");
                 return;
             case 401:
-                PteroUtils.log("Ptero4J failed to load! Unable to authenticate. Your key might be invalid.");
+                getLogger().error("Ptero4J failed to load! Unable to authenticate. Your key might be invalid.");
                 break;
             case 403:
-                PteroUtils.log("Not authorized.");
+                getLogger().error("Not authorized.");
                 return;
             case 404:
-                PteroUtils.log("Ptero4J failed to load! An invalid URL was provided.");
+                getLogger().error("Ptero4J failed to load! An invalid URL was provided.");
                 break;
             case 500:
-                PteroUtils.log("An error occurred on the panel side, please check panel logs/");
+                getLogger().error("An error occurred on the panel side, please check panel logs/");
                 break;
         }
 

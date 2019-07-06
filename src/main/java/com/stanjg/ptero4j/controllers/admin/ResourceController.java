@@ -4,7 +4,6 @@ import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.actions.PteroAction;
 import com.stanjg.ptero4j.controllers.Controller;
 import com.stanjg.ptero4j.util.HTTPMethod;
-import com.stanjg.ptero4j.util.PteroUtils;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -59,7 +58,7 @@ public abstract class ResourceController<T> extends Controller {
 
             Response response = makeApiCall(action.getEndpoint(), action.getMethod(), data);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -81,7 +80,7 @@ public abstract class ResourceController<T> extends Controller {
             Response response = makeApiCall("/"+resourceName+"?"+queryParams, HTTPMethod.GET);
             System.out.println(response.request().url());
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -110,7 +109,7 @@ public abstract class ResourceController<T> extends Controller {
         try {
             Response response = makeApiCall("/"+resourceName+"/"+id, HTTPMethod.GET);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -130,7 +129,7 @@ public abstract class ResourceController<T> extends Controller {
         try {
             Response response = makeApiCall("/"+resourceName+"?search="+query, HTTPMethod.GET);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -162,7 +161,7 @@ public abstract class ResourceController<T> extends Controller {
             Response response = makeApiCall("/"+resourceName+"?page="+page, HTTPMethod.GET);
 
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -188,7 +187,7 @@ public abstract class ResourceController<T> extends Controller {
             Response response = makeApiCall("/"+resourceName, HTTPMethod.GET);
 
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -219,7 +218,7 @@ public abstract class ResourceController<T> extends Controller {
             Response response = makeApiCall(endPoint, HTTPMethod.GET);
 
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 
@@ -258,7 +257,7 @@ public abstract class ResourceController<T> extends Controller {
             boolean success = response.code() == 204;
 
             if (!success) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return success;
             }
 
@@ -275,7 +274,7 @@ public abstract class ResourceController<T> extends Controller {
         try {
             Response response = makeApiCall("/"+otherResource+"/"+id+"?include="+this.resourceName, HTTPMethod.GET);
             if (response.code() < 200 || response.code() >= 300) {
-                PteroUtils.logRequestError(response);
+                logError(response);
                 return null;
             }
 

@@ -1,8 +1,12 @@
 package com.stanjg.ptero4j;
 
 import com.stanjg.ptero4j.controllers.GenericController;
-import com.stanjg.ptero4j.controllers.admin.*;
 import com.stanjg.ptero4j.controllers.TestController;
+import com.stanjg.ptero4j.controllers.admin.LocationsController;
+import com.stanjg.ptero4j.controllers.admin.NodesController;
+import com.stanjg.ptero4j.controllers.admin.ServersController;
+import com.stanjg.ptero4j.controllers.admin.UsersController;
+import com.stanjg.ptero4j.entities.objects.misc.Logger;
 
 import java.io.IOException;
 
@@ -16,15 +20,17 @@ public class PteroAdminAPI {
     private NodesController nodesController;
     private LocationsController locationsController;
 
+    private Logger logger;
+
     /**
      * Create an instance of AdminAPI
      * @param baseURL URL of the panel (like https://panel.myhost.com)
      * @param key The application API Key from the panel
      */
-    public PteroAdminAPI(String baseURL, String key) {
-
+    public PteroAdminAPI(String baseURL, String key, Logger logger) {
         this.baseURL = baseURL.endsWith("/") ? baseURL  + "api/application" : baseURL + "/api/application";
         this.key = "Bearer " + key;
+        this.logger = logger;
 
         try {
             new TestController(null, this.baseURL, this.key).testConnection();
@@ -77,5 +83,9 @@ public class PteroAdminAPI {
      */
     public LocationsController getLocationsController() {
         return locationsController;
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 }

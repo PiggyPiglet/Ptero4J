@@ -18,30 +18,24 @@ public abstract class Controller {
     private OkHttpClient client;
     private String baseURL, key;
 
-    private Logger logger;
+    private final Logger logger;
 
     private static final MediaType JSON = MediaType.parse("application/json");
 
-    public Controller(PteroAdminAPI api, String baseURL, String key) {
+    public Controller(PteroAdminAPI api, String baseURL, String key, Logger logger) {
         this.adminAPI = api;
         this.baseURL = baseURL;
         this.key = key;
-
-        if (api != null) {
-            this.logger = api.getLogger();
-        }
+        this.logger = logger;
 
         this.client = new OkHttpClient();
     }
 
-    public Controller(PteroUserAPI api, String baseURL, String key) {
+    public Controller(PteroUserAPI api, String baseURL, String key, Logger logger) {
         this.userAPI = api;
         this.baseURL = baseURL;
         this.key = key;
-
-        if (api != null) {
-            this.logger = api.getLogger();
-        }
+        this.logger = logger;
 
         this.client = new OkHttpClient();
     }

@@ -17,7 +17,7 @@ public abstract class ResourceController<T> extends Controller {
     private String resourceName;
 
     protected ResourceController(PteroAdminAPI api, String baseURL, String key, String resourceName) {
-        super(api, baseURL, key);
+        super(api, baseURL, key, api.getLogger());
         this.resourceName = resourceName;
     }
 
@@ -78,7 +78,7 @@ public abstract class ResourceController<T> extends Controller {
 
         try {
             Response response = makeApiCall("/"+resourceName+"?"+queryParams, HTTPMethod.GET);
-            System.out.println(response.request().url());
+            getLogger().info(response.request().url().toString());
             if (response.code() < 200 || response.code() >= 300) {
                 logError(response);
                 return null;

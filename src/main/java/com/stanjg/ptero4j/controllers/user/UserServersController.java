@@ -17,7 +17,7 @@ import java.util.List;
 public class UserServersController extends Controller {
 
     public UserServersController(PteroUserAPI api, String baseURL, String key) {
-        super(api, baseURL, key);
+        super(api, baseURL, key, api.getLogger());
     }
 
     public UserServer getServer(String id) {

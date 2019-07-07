@@ -20,7 +20,7 @@ public class PteroAdminAPI {
     private NodesController nodesController;
     private LocationsController locationsController;
 
-    private Logger logger;
+    private final Logger logger;
 
     /**
      * Create an instance of AdminAPI
@@ -32,6 +32,8 @@ public class PteroAdminAPI {
         this.key = "Bearer " + key;
         this.logger = logger;
 
+        logger.info("test");
+
         try {
             new TestController(null, this.baseURL, this.key, logger).testConnection();
         } catch (IOException e) {
@@ -39,7 +41,7 @@ public class PteroAdminAPI {
         }
 
         this.usersController = new UsersController(this, this.baseURL, this.key);
-        this.genericController = new GenericController(this, this.baseURL, this.key);
+        this.genericController = new GenericController(this, this.baseURL, this.key, logger);
         this.serversController = new ServersController(this, this.baseURL, this.key);
         this.nodesController = new NodesController(this, this.baseURL, this.key);
         this.locationsController = new LocationsController(this, this.baseURL, this.key);

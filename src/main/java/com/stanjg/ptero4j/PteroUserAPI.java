@@ -33,7 +33,7 @@ public class PteroUserAPI {
         }
 
         this.serversController = new UserServersController(this, this.baseURL, this.key);
-        this.genericController = new GenericController(this, this.baseURL, this.key);
+        this.genericController = new GenericController(this, this.baseURL, this.key, logger);
     }
 
     /**
